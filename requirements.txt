@@ -1,0 +1,9 @@
+git+https://github.com/m-bain/whisperx.git
+fastapi
+python-multipart
+aiofiles
+uvicorn
+numpy
+torch
+deep-translator
+pydub

@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: Audio File Upload API
+  version: 1.0.0
+paths:
+  /upload/:
+    post:
+      summary: Upload an audio file and perform text generation
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                audio:
+                  type: string
+                  format: binary
+                  description: The audio file to be uploaded
+                device:
+                  type: string
+                  description: The device to be used for processing
+                  enum:
+                    - CPU
+                    - GPU
+                  default: CPU
+                model_name:
+                  type: string
+                  description: The name of the text generation model to be used
+                  enum:
+                    - tiny
+                    - base
+                    - small
+                    - medium
+                    - large
+                  default: base
+
+                transcription:
+                  type: string
+                  description: The desired output format for the generated text
+                  enum:
+                    - plain text
+                    - srt
+                    - vtt
+                    - ass
+                    - tsv
+                  default: plain text
+                translate:
+                  type: boolean
+                  description: Whether to translate the generated text to a different language
+                  default: false
+                language:
+                  type: string
+                  description: The language to translate the generated text to (if `translate` is `true`)
+                  default: ""
+                patience:
+                  type: number
+                  description: The patience parameter for the text generation model
+                  default: 1.0
+                temperature:
+                  type: number
+                  description: The temperature parameter for the text generation model
+                  default: 1.0
+                suppress_tokens:
+                  type: array
+                  items:
+                    type: string
+                  description: The list of tokens to suppress in the generated text
+                  default: ["-1"]
+                initial_prompt:
+                  type: string
+                  description: The initial prompt for the text generation model
+                condition_on_previous_text:
+                  type: boolean
+                  description: Whether to condition the text generation on previous generated text
+                  default: false
+                temperature_increment_on_fallback:
+                  type: number
+                  description: The temperature increment to apply when falling back to a lower temperature
+                  default: 0.2
+                compression_ratio_threshold:
+                  type: number
+                  description: The compression ratio threshold for the generated text
+                  default: 2.4
+                logprob_threshold:
+                  type: number
+                  description: The log probability threshold for the generated text
+                  default: -1.0
+                no_speech_threshold:
+                  type: number
+                  description: The threshold for speech detection
+                  default: 0.6
+              required:
+                - audio
+                - initial_prompt
+      responses:
+        '200':
+          description: The generated text
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Invalid input provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
