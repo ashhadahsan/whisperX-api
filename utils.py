@@ -38,7 +38,7 @@ async def write(filename, dtype, result_aligned):
 
     if dtype == "vtt":
         with open(
-            os.path.join(".", os.path.splitext(filename)[0] + ".vtt"), "w"
+            os.path.join(".", os.path.splitext(filename)[0] + ".vtt"), "w",encoding="utf-8"
         ) as vtt:
             write_vtt(result_aligned["segments"], file=vtt)
     if dtype == "srt":
@@ -50,19 +50,19 @@ async def write(filename, dtype, result_aligned):
             write_srt(result_aligned["segments"], file=srt)
     if dtype == "ass":
         with open(
-            os.path.join(".", os.path.splitext(filename)[0] + ".ass"), "w"
+            os.path.join(".", os.path.splitext(filename)[0] + ".ass"), "w",encoding="utf-8"
         ) as ass:
             write_ass(result_aligned["segments"], file=ass)
     if dtype == "tsv":
         with open(
-            os.path.join(".", os.path.splitext(filename)[0] + ".tsv"), "w"
+            os.path.join(".", os.path.splitext(filename)[0] + ".tsv"), "w",encoding="utf-8"
         ) as tsv:
             write_tsv(result_aligned["segments"], file=tsv)
     if dtype == "plain text":
         print("here")
         print(filename)
         with open(
-            os.path.join(".", os.path.splitext(filename)[0] + ".txt"), "w"
+            os.path.join(".", os.path.splitext(filename)[0] + ".txt"), "w",encoding="utf-8"
         ) as txt:
             write_txt(result_aligned["segments"], file=txt)
 
