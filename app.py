@@ -21,7 +21,7 @@ import uuid
 @app.post("/whisperX/")
 async def upload_file(
     audio: UploadFile = File(...),
-    aligned_json: UploadFile = File(...),
+    aligned_json: UploadFile = File(None),
     device: str = Form("cpu"),
     model_name: str = Form("base"),
     transcription: str = Form("plain text"),
